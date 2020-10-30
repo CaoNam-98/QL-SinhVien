@@ -9,6 +9,10 @@ class TaskItem extends Component {
         this.props.onUpdate(this.props.item.id);
     }
 
+    onUpdateStatus = () => {
+        this.props.onUpdateStatus(this.props.item.id);
+    }
+
     render(){  
         return (
             <tr className="text-center">
@@ -17,7 +21,7 @@ class TaskItem extends Component {
                 <td>{ this.props.item.tensv }</td>
                 <td>{ ((this.props.item.diemNMLT + this.props.item.diemCTDL + this.props.item.diemLTHDT)/ 3).toFixed(2) }</td>
                 <td className="text-center">
-                    <span className={ this.props.item.status === true ? "label label-danger" : "label label-success" }>
+                    <span className={ this.props.item.status === true ? "label label-danger" : "label label-success" } onClick={ this.onUpdateStatus }>
                                 { this.props.item.status === true ? 'Kích Hoạt' : 'Ẩn'}
                             </span>
                 </td>

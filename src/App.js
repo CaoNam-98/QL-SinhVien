@@ -20,6 +20,7 @@ class App extends Component {
             searchName: null,
             sortName: null,
             sortValue: null,
+            updateStatus: null,
         };
         this.onOpenForm = this.onOpenForm.bind(this);
     }
@@ -172,7 +173,20 @@ class App extends Component {
         })
     }
 
+    onUpdateStatus = (id) => {
+        var {tasks} = this.state;
+        var location = this.onFindItem(id);
+        var cloneTask = this.state.tasks[location];
+        cloneTask.status = !cloneTask.status;
+        tasks[location] = cloneTask;
+        this.setState({
+            tasks : tasks,
+        })
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
     render(){
+        console.log(this.state.tasks);
         var { tasks, filterName, filterStatus, searchName, sortName, sortValue } = this.state;
         // Lọc theo tên
         if(filterName !== ''){
@@ -292,7 +306,7 @@ class App extends Component {
                             </button>
                             <Control onSearchName={ this.onSearchName } onSort={ this.onSort }/>
                             <div className="row mt-15">
-                                <TaskList tasks={ tasks } onDelete={ this.onDelete } onUpdate={ this.onUpdate } SearchFilter={ this.onSearchFilter }/>
+                                <TaskList tasks={ tasks } onDelete={ this.onDelete } onUpdate={ this.onUpdate } SearchFilter={ this.onSearchFilter } onUpdateStatus={ this.onUpdateStatus }/>
                             </div>
                         </div>
                     </div>
